@@ -3,4 +3,5 @@
 (load 1_Game.clp)
 (load 2_Code.clp)
 (load 3_Agent.clp)
+(load combination_generator.clp)
 (reset)

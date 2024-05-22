@@ -13,5 +13,38 @@
  )
  
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defrule computer-player
+  (status (step ?s) (mode computer))
+  =>
+  (focus MAIN)
+  (assert (combination (code (create$ blue green red yellow orange white black purple))))
+  (focus COMBINATION_GENERATOR)
+)
 
 
+(defrule generate-all-possibilities
+    (status (step 0) (mode computer))
+    =>
+    (assert (combination (code (create$ blue green red yellow orange white black purple))))
+    (focus COMBINATION_GENERATOR)
+)
+
+(defrule submit-guess
+    (status (step ?s) (mode computer))
+    (combination (code $?code))
+    =>
+    (assert (guess (step ?s) (g $?code)))
+    (focus GAME)
+)
+(defrule reduce-search-space
+    (status (step ?s) (mode computer))
+    (answer (step ?s) (right-placed ?rp) (miss-placed ?mp))
+    (combination (code $?code))
+    =>
+    ;; code to reduce search space based on feedback
+    (focus MAIN)
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
