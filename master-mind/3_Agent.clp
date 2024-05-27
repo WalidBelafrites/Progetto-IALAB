@@ -29,7 +29,7 @@
 
 ; Fonction pour générer une couleur aléatoire non encore choisie
 (deffunction random-color (?already-chosen)
-  (bind ?colors (create$ red blue green yellow orange purple))
+  (bind ?colors (create$ blue green red yellow orange white black purple))
   (bind ?available-colors (create$))
   (foreach ?color ?colors
     (if (not (member$ ?color ?already-chosen)) then

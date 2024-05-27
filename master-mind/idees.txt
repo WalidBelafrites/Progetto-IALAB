@@ -1,0 +1,36 @@
+LEGENDE -----------
+1 2 3 4 : couleurs initiales
+N = nouvelle valeur aleatoire
+K = ancienne valeur
+
+IDEE 1
+-----------------------------------------------------------------
+(1 2 3 4)
+recup resultat
+si 1 bien place
+(K N N N)
+...
+(N N N N)
+...
+Cette fois ci première valeur correcte
+(K N N N)
+...
+(K K N N)
+...
+(Bon resultat)
+
+CAS SPECIAL --> 4 Missplaced || 1 right placed 3 Miss || 2 right placed 2 Miss
+-----------------------------------------------------------------
+(1 2 3 4)
+--> save couleurs et fait idee un sur ces 4 couleurs
+
+
+
+
+IDEE 2
+-----------------------------------------------------------------
+(1 2 3 4)
+recup res
+si 1 bien place
+(K N N N)
+    -> si res : aucune couleur exacte -> (N 2 N N) .... (N N N 4)
