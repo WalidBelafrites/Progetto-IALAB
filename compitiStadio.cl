@@ -22,6 +22,12 @@ giornata(1..14).
 4 {match(G,(A,B)) : combinazione(A,B) } 4 :-giornata(G).
 1 {stadio_match(G,(A,B), (A, S)) : stadio(A,S)} 1 :- match(G,(A,B)).
 
+
+
+
+stadio_match(G, (A, B), S) :- match(G, (A, B)), stadio(A, S).
+
+
 :-combinazione(A,B), A == B.
 :-match(G,(A,B)),match(J,(C,D)), G != J, (A,B) == (C,D).  % due squadre si possono affrontare solo una volta a casa di una delle due.
 :-match(G,(A,B)),match(J,(C,D)), G == J, A == C, B != D.  % una squadra non puo' giocare due partite a casa nella stessa giornata.
@@ -34,7 +40,6 @@ giornata(1..14).
 :-match(G,(A,B)),match(J,(C,D)),match(K,(E,F)),A == C, C == E, K = J+1, J = G+1. % una squadra non puo' giocare piu' di due volte consecutivamente a casa
 :-match(G,(A,B)),match(J,(C,D)),match(K,(E,F)),B == D, D == F, K = J+1, J = G+1. % una squadra non puo' giocare piu' di due volte consecutivamente i trasferta
 
-stadio_match(G, (A, B), S) :- match(G, (A, B)), stadio(A, S).
 :- stadio_match(G, (A, B), S1), stadio_match(G, (C, D), S2), G == J, S1 == S2, (A, B) != (C, D).
 
   #show stadio_match/3.
