@@ -146,12 +146,19 @@
 ; Verificazione dei due casi del guess
 (deffunction generate-guess (?prev-guess ?right-placed ?miss-placed)
   (bind ?total-correct (+ ?right-placed ?miss-placed))
+
+  ;STRATEGY 1 ----------------------------------------------------------
+  ;(bind ?guess (guess-right-placed (create$ ?prev-guess) ?right-placed))
+  ;---------------------------------------------------------------------
+
+  ;STRATEGY 2 ----------------------------------------------------------
   (bind ?guess (if (= ?total-correct 4)
-                  ;Ce ne già tutti i colori nel "prev-guess" dobbiamo solo verificare l'ordine
+  ;                ;Ce ne già tutti i colori nel "prev-guess" dobbiamo solo verificare l'ordine
                   then (guess-final (create$ ?prev-guess) ?right-placed)
-                  ;Caso di base
-                  ;else (guess-right-placed (create$ ?prev-guess) ?right-placed)))
+  ;                ;Caso di base
                   else (guess-color-ver (create$ ?prev-guess) ?total-correct)))
+  ;---------------------------------------------------------------------
+  
   (return ?guess)
 )
 
