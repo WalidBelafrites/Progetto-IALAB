@@ -60,30 +60,25 @@
 ;Generazione del nuovo guess con l'utilizazione dei colori "right-placed"
 (deffunction guess-right-placed (?prev-guess ?right-placed )
   (bind ?guess (create$))
-  (bind ?used-colors (create$))
+  (bind ?used-colors (create$ ?prev-guess))
 
   ;Generazione della prima colore del "guess"
   (if (> ?right-placed 0) then
     (bind ?guess (create$ (nth$ 1 ?prev-guess)))
-    (bind ?used-colors (create$ (nth$ 1 ?prev-guess)))
   else
     (bind ?new-color (random-color ?used-colors ))
     (bind ?guess (create$ ?new-color))
     (bind ?used-colors (create$ ?new-color)))
-  
   ;Generazione della seconda colore del "guess"
   (if (> ?right-placed 1) then
     (bind ?guess (create$ ?guess (nth$ 2 ?prev-guess)))
-    (bind ?used-colors (create$ ?used-colors (nth$ 2 ?prev-guess)))
   else
     (bind ?new-color (random-color ?used-colors ))
     (bind ?guess (create$ ?guess ?new-color))
     (bind ?used-colors (create$ ?used-colors ?new-color)))
-
   ;Generazione della terza colore del "guess"
   (if (> ?right-placed 2) then
     (bind ?guess (create$ ?guess (nth$ 3 ?prev-guess)))
-    (bind ?used-colors (create$ ?used-colors (nth$ 3 ?prev-guess)))
   else
     (bind ?new-color (random-color ?used-colors ))
     (bind ?guess (create$ ?guess ?new-color))
@@ -91,7 +86,6 @@
 
   (bind ?new-color (random-color ?used-colors ))
   (bind ?guess (create$ ?guess ?new-color))
-  (bind ?used-colors (create$ ?used-colors ?new-color));)
 
   (return ?guess)
 )
@@ -106,12 +100,10 @@
   ;Il guess
   (bind ?guess (create$))
   ;colori già utilisate nel guess
-  (bind ?used-colors (create$))
-
+  (bind ?used-colors (create$ ?prev-guess))
   ; Generazione delle colori con l'uso del "miss placed"
   (if (> ?total-correct 0) then
     (bind ?guess (create$ (nth$ 1 ?prev-guess)))
-    (bind ?used-colors (create$ (nth$ 1 ?prev-guess)))
   else
     (bind ?new-color (random-color ?used-colors))
     (bind ?guess (create$ ?new-color))
@@ -119,7 +111,6 @@
   
   (if (> ?total-correct 1) then
     (bind ?guess (create$ ?guess (nth$ 2 ?prev-guess)))
-    (bind ?used-colors (create$ ?used-colors (nth$ 2 ?prev-guess)))
   else
     (bind ?new-color (random-color ?used-colors))
     (bind ?guess (create$ ?guess ?new-color))
@@ -127,16 +118,13 @@
 
   (if (> ?total-correct 2) then
     (bind ?guess (create$ ?guess (nth$ 3 ?prev-guess)))
-    (bind ?used-colors (create$ ?used-colors (nth$ 3 ?prev-guess)))
   else
     (bind ?new-color (random-color ?used-colors))
     (bind ?guess (create$ ?guess ?new-color))
     (bind ?used-colors (create$ ?used-colors ?new-color)))
-
   ;ultima colore
   (bind ?new-color (random-color ?used-colors))
   (bind ?guess (create$ ?guess ?new-color))
-
   (return ?guess)
 )
 ;--------------------------------------------------------------------------------------------------------
@@ -153,9 +141,9 @@
 
   ;STRATEGY 2 ----------------------------------------------------------
   (bind ?guess (if (= ?total-correct 4)
-  ;                ;Ce ne già tutti i colori nel "prev-guess" dobbiamo solo verificare l'ordine
+                  ;Ce ne già tutti i colori nel "prev-guess" dobbiamo solo verificare l'ordine
                   then (guess-final (create$ ?prev-guess) ?right-placed)
-  ;                ;Caso di base
+                  ;Caso di base
                   else (guess-color-ver (create$ ?prev-guess) ?total-correct)))
   ;---------------------------------------------------------------------
   
